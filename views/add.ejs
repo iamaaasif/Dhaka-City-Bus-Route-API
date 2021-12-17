@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Route</title>
+    <link rel="stylesheet" href="../css/toastify.css" />
+    <script src="../js/toastify.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 2px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        margin: 1rem;
+        padding: 12px;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        background-color: #4caf50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .dev_fun{
+          width: 100%;
+            background-color: aqua;
+            color: black;
+            display: inline-block;
+            box-sizing: border-box;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .nav-bar{
+            display: flex;
+            justify-content: space-around;
+            /* background-color: whitesmoke ; */
+            
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            
+        }
+        a:hover{
+            background-color: #ddd;
+        }
+        .child{
+            color: black;
+            font-size: 2rem;
+
+        }
+        .add_new_route{
+            text-align: center;
+            width: 100%;
+            background-color: cadetblue;
+        }
+        .view_route{
+            text-align: center;
+            width: 100%;
+background-color: coral;
+        }
+        .add_bus{
+            text-align: center;
+            width: 100%;
+background-color: darkgoldenrod;
+        }
+
+
+</style>
+
+<body>
+    <div class="dev_fun">
+        <h1>BUS ROUTE API DEVELOPMENT AREA</h1>
+    </div>
+    <nav class="nav-bar">
+        <div class="child add_new_route">
+<a href="/add_route">Add New Route</a>
+        </div>
+        <div class="child view_route">
+<a href="/view_route">View Route</a>
+        </div>
+        <div class="child add_bus">
+<a href="/add_bus">Add Bus</a>
+        </div>
+    </nav>
+    <section class="route">
+        <form action="/add_route" method="post" id="add_route">
+            <div class="route_no">
+                <input type="text" name="route_no" id="route_no" placeholder="Enter Route No" />
+            </div>
+
+            <div class="route_details">
+                <input type="text" name="route_details" id="route_details" placeholder="Enter Route Details" />
+            </div>
+            <div class="route_fair">
+                <input type="text" name="route_fair" id="route_fair" placeholder="Enter Route Fair" />
+            </div>
+            <div class="route_distance">
+                <input type="text" name="route_distance" id="route_distance" placeholder="Enter Route Distance" />
+            </div>
+            <div class="available_bus">
+                <input type="text" name="available_bus" id="available_bus" placeholder="Enter Available Buses In this route" />
+            </div>
+            <div class="btn_submit">
+                <input type="submit" value="Add Route" />
+            </div>
+        </form>
+    </section>
+    <script>
+        const AddUserToast = Toastify({
+            text: "Route was added successfully.",
+            duration: 1000,
+        });
+
+        const FailedUserToast = Toastify({
+            text: "Route added Failed!.",
+            duration: 1000,
+        });
+
+        const form = document.querySelector("#add_route");
+
+        // form submit handler
+        form.onsubmit = function (event) {
+            event.preventDefault();
+            const data = new URLSearchParams();
+            for (const pair of new FormData(form)) {
+                data.append(pair[0], pair[1]);
+            }
+
+            // prepare the form data
+
+            // send the request to server
+            fetch("/add_route", {
+                method: "POST",
+                body: data,
+            }).then((respose) => {
+                if (respose.ok) {
+                    AddUserToast.showToast();
+
+
+
+                    setTimeout(() => {
+
+                        form.reset();
+                        location.reload();
+                    }, 1000);
+                }
+                else {
+                    FailedUserToast.showToast();
+
+
+                    setTimeout(() => {
+                        form.reset();
+                        location.reload();
+                    }, 1000);
+                }
+            })
+                .catch((err) => {
+                    FailedUserToast.showToast();
+
+
+                    setTimeout(() => {
+                        form.reset();
+                        location.reload();
+                    }, 1000);
+                });
+            // get response
+        };
+    </script>
+</body>
+
+</html>

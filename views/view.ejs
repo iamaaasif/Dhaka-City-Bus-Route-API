@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Route</title>
+    <link rel="stylesheet" href="../css/toastify.css" />
+    <script src="../js/toastify.js"></script>
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-size: 1.2rem;
+    }
+
+    div {
+        /* border-radius: 5px; */
+        background-color: #f2f2f2;
+        padding: 2px;
+    }
+
+    input[type=text] {
+        width: 50%;
+        margin: 1rem;
+        padding: 12px;
+        box-sizing: border-box;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    input[type=submit] {
+        width: 50%;
+
+        margin: 1rem;
+        padding: 12px;
+
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    .view_form {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .route_no {
+        width: 80%;
+        text-align: center;
+
+        /* height: 50px;
+       width: 50px;
+       background-color: red; */
+    }
+
+    .btn_submit {
+        width: 20%;
+        text-align: center;
+
+
+        /* height: 50px;
+       width: 50px;
+       background-color: green; */
+
+
+    }
+
+    .dev_fun{
+          width: 100%;
+            background-color: aqua;
+            color: black;
+            display: inline-block;
+            box-sizing: border-box;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .nav-bar{
+            display: flex;
+            justify-content: space-around;
+            /* background-color: whitesmoke ; */
+            
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            
+        }
+        a:hover{
+            background-color: #ddd;
+        }
+        .child{
+            color: black;
+            font-size: 2rem;
+
+        }
+        .add_new_route{
+            text-align: center;
+            width: 100%;
+            background-color: cadetblue;
+        }
+        .view_route{
+            text-align: center;
+            width: 100%;
+background-color: coral;
+        }
+        .add_bus{
+            text-align: center;
+            width: 100%;
+background-color: darkgoldenrod;
+        }
+
+
+</style>
+
+<body>
+    <div class="dev_fun">
+        <h1>BUS ROUTE API DEVELOPMENT AREA</h1>
+    </div>
+    <nav class="nav-bar">
+        <div class="child add_new_route">
+<a href="/add_route">Add New Route</a>
+        </div>
+        <div class="child view_route">
+<a href="/view_route">View Route</a>
+        </div>
+        <div class="child add_bus">
+<a href="/add_bus">Add Bus</a>
+        </div>
+    </nav>
+    <section class="view_route">
+        <form action="/view_route" method="post" id="view_route" class="view_form">
+
+            <div class="route_no">
+                <input type="text" name="route_no" id="route_no" placeholder="Enter Route No">
+            </div>
+            <div class="btn_submit">
+                <input type="submit" value=" View Route ">
+            </div>
+
+        </form>
+
+    </section>
+
+    <!-- <section class="view_data">
+        <div class="route_no">
+
+        </div>
+        <div class="route_details">
+
+        </div>
+    </section>
+
+    <div id="myData"> -->
+
+    </div>
+    <!-- <script>
+
+
+const form = document.querySelector("#view_form");
+
+
+
+
+// form submit handler
+form.onsubmit = function (event) {
+    event.preventDefault();
+    const data = new URLSearchParams();
+    for (const pair of new FormData(form)) {
+        data.append(pair[0], pair[1]);
+    }
+
+    fetch('/view_route', {
+	method: 'POST'
+}).then(function (response) {
+	// The API call was successful!
+	if (response.ok) {
+		return response.json();
+	} else {
+		return Promise.reject(response);
+	}
+}).then(function (data) {
+            var mainContainer = document.getElementById("myData");
+            var div = document.createElement("div");
+                div.innerHTML = 'Route NO:  ' + data.route_no + ' <br> Route Details: ' + data.route_details;
+                mainContainer.appendChild(div);
+	// This is the JSON from our response
+	console.log(data);
+}).catch(function (err) {
+	// There was an error
+	console.warn('Something went wrong.', err);
+});
+
+//     // prepare the form data
+
+//     // send the request to server
+//     fetch("/view_route", {
+//         method: "POST",
+//         body: data,
+//     });
+//     // get response
+
+};
+
+
+
+
+
+
+
+
+
+// async function getRoutes() {
+//     let url = '/view_route';
+//     try {
+//         let res = await fetch(url);
+//         return await res.json();
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+// async function renderRoutes() {
+//     let routes = await getRoutes();
+//     let html = '';
+//     routes.forEach(route => {
+//         let htmlSegment = `
+//                             <h2>${route.route_no} </h2>
+//                         </div>`;
+
+//         html += htmlSegment;
+//     });
+
+//     let container = document.querySelector('.myData');
+//     container.innerHTML = html;
+// }
+
+// renderUsers();
+
+
+
+
+
+
+        // fetch('/view_route')
+        // .then(function (response) {
+        //         return response.json();
+        //     })
+        //     .then(function (data) {
+        //         appendData(data);
+        //     })
+        //     .catch(function (err) {
+        //         console.log('error: ' + err);
+        //     });
+        // function appendData(data) {
+        //     var mainContainer = document.getElementById("myData");
+        //     // for (var i = 0; i < data.length; i++) {
+        //         var div = document.createElement("div");
+        //         div.innerHTML = 'Route NO:  ' + data.route_no + ' <br> Route Details: ' + data.route_details;
+        //         mainContainer.appendChild(div);
+        //     // }
+        // }
+    </script> -->
+</body>
+
+</html>
